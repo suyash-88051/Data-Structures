@@ -1,19 +1,33 @@
 #include<iostream>
 using namespace std;
 
-//returns the number of leafs (no. of leafs = internal_vertices * (m-1) + 1)
-int calLeafNod(int m, int i)
-{
-	int leaf = 0;
-	leaf = i * (m-1) + 1;
-	return leaf;
+int fibo(int); // To find fibonacci sequence (recursively)
+void fibonaciiSeries(int); // To print fibonacci Series
+
+int  fibo(int num ){
+    if (num==1){
+        return 1;
+    }
+    else if(num==0){
+        return 0;
+    }
+    else{
+        return fibo(num-1) + fibo(num-2);
+    }
 }
-int main()
-{
-	int m,i;
-	cout<<"Enter the value of m in an m-ary Tree , m = ";
-	cin>>m;
-	cout<<"Enter the number of Internal Vertices : ";
+void fibonaciiSeries(int n){
+    for (int i = 0; i < n; i++){
+        cout<<fibo(i)<<" ";
+    }
+}
+
+int main(){
+	
+	int i;
+	cout<<"Enter the no. of terms want to print(of fibonacci series) : ";
 	cin>>i;
-	cout<<"Total number of Leaf Nodes are : "<<calLeafNod(m,i);
+    cout<<"Finonacii Series"<<endl;
+    fibonaciiSeries(i);
+    return 0;
+    
 }
