@@ -12,9 +12,8 @@ class node
 };
 class SLL
 {
-	private:
-		node *Head,*tail;
 	public:
+		node *Head,*tail;
 		SLL()
 		{
 			Head = NULL;
@@ -30,7 +29,28 @@ class SLL
 		bool Search(int);
 		void InsertAt(int,int);
 		void DeleteAt(int);
+		void reverse();
+		bool isEmpty();
+		void concatenate(SLL );
+		int sizeOfSLL();
+		~SLL()
+		{
+			node* temp;
+			while(Head!=NULL)
+			{
+				temp=Head->next;
+				delete Head;
+				Head=temp;
+			}
+		}
 };
+bool SLL :: isEmpty()
+{
+	if(Head==NULL)
+		return true;
+	else
+		return false;
+}
 void SLL :: AddNode(int a)
 {
 	node* temp=new node(a);
@@ -78,6 +98,17 @@ void SLL :: DelFromTail()
 	}
 	temp->next = NULL;
 }
+int SLL :: sizeOfSLL()
+{
+	int count=0;
+	node* temp =  Head;
+	while(temp!=NULL)
+	{
+		count++;
+		temp=temp->next;
+	}
+	return count;
+}
 void SLL :: Display()
 {
 	node* temp = Head;
@@ -117,6 +148,20 @@ void SLL :: InsertAt(int pos,int val)
 		count+=1;
 	}
 }
+void SLL :: concatenate(SLL y)
+{
+	node* temp = Head;
+	while(temp->next!=NULL)
+	{
+		temp=temp->next;
+	}
+	node* temp2= y.Head;
+	while(temp2!=NULL)
+	{
+		AddToTail(temp2->data);
+		temp2=temp2->next;
+	}
+}
 void SLL :: DeleteAt(int pos)
 {
 	node* temp= Head;
@@ -133,6 +178,21 @@ void SLL :: DeleteAt(int pos)
 		count++;
 	}
 }
+void SLL :: reverse()
+{
+	node* p=Head;
+	node* q = NULL;
+	node* r=NULL;
+	while(p!=NULL)
+	{
+		r=q;
+		q=p;
+		p=p->next;
+		q->next=r;
+	}
+	tail=Head;
+	Head=q;
+}
 void SLL :: menu()
 {
 	cout<<endl<<"\t\tEnter your choice\t\t"<<endl;
@@ -143,6 +203,10 @@ void SLL :: menu()
 	cout<<"\t5. Search in the Linked List"<<endl;
 	cout<<"\t6. Insert in the Linked List"<<endl;
 	cout<<"\t7. Delete in the Linked List"<<endl;
+	cout<<"\t8. Reverse the Linked List"<<endl;
+	cout<<"\t9. To check isEmpty"<<endl;
+	cout<<"\t10. To Enter new Linked List"<<endl;
+	cout<<"\t11. To Find the size of Entered Link List"<<endl;
 	cout<<"\t0. To Exit"<<endl;
 }
 int main()
@@ -150,6 +214,7 @@ int main()
 	cout<<"\t\tProgram Started :"<<endl;
 	cout<<"Enter the elements of the Linked List(enter 911 to stop) : "<<endl;
 	SLL a;
+	SLL b;
 	int elem,ch;
 	while(elem != 911)
 	{
@@ -181,10 +246,12 @@ int main()
 			a.AddToTail(i2);
 			break;
 		case 3:
-			a.DelFromHead();
+			if(!a.isEmpty())
+				a.DelFromHead();
 			break;
 		case 4:
-			a.DelFromTail();
+			if(!a.isEmpty())
+				a.DelFromTail();
 			break;
 		case 5:
 			int i3;
@@ -209,6 +276,30 @@ int main()
 			cin>>i5;
 			a.DeleteAt(i5);
 			break;
+		case 8:
+			a.reverse();
+			break;
+		case 9:
+			if(a.isEmpty())
+				cout<<"Linked List is empty";
+			else
+				cout<<"Linked List is not-empty";
+			break;
+		case 10:
+			cout<<"Enter the elements of the Linked List(enter 911 to stop) : "<<endl;
+			elem=0;
+			while(elem != 911)
+			{
+				cin>>elem;
+				if(elem!=911)
+					b.AddNode(elem);
+			}
+			cout<<endl<<"Entered Linked List : ";
+			b.Display();
+			a.concatenate(b);
+			break;
+		case 11:
+			cout<<"Size of entered Linked List : "<<a.sizeOfSLL();
 		default:
 			cout<<"Enter a valid choice";
 	}
