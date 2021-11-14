@@ -23,6 +23,8 @@ class Diagonal
 		}
 		int value(int r,int c)
 		{
+			r=r-1;
+			c=c-1;
 			if(r>=0 && r<len && c>=0 && c<len){
 				if(r==c)
 					return D[r];
@@ -59,4 +61,6 @@ int main()
 		dm.store(i,j,temp);
 	}
 	dm.show();
+	dm.value(2,1);
+	dm.value(2,2);
 }
