@@ -61,6 +61,6 @@ int main()
 		dm.store(i,j,temp);
 	}
 	dm.show();
-	dm.value(2,1);
-	dm.value(2,2);
+	cout<<endl<<"Printing element at index[2,1] : "<<dm.value(2,1);
+	cout<<endl<<"Printing element at index[2,2] : "<<dm.value(2,2);
 }
